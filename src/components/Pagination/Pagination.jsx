@@ -43,3 +43,22 @@ const Pagination = ({
 }
 
 export default Pagination
+
+// do-later
+{
+	/*
+	 
+	--- Do component for buttons
+	do folder UI and move it there
+	--- 
+
+	<button
+		disabled={currentPage >= totalPages}
+		onClick={handleNextPage}
+		className={styles.arrow}
+		>
+				{'>'}
+	</button>	
+
+	*/
+}

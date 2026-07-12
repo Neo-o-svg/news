@@ -1,10 +1,14 @@
-import React from 'react'
-
 import styles from './styles.module.css'
 
 const Categories = ({ categories, setSelectedCategory, selectedCategory }) => {
 	return (
 		<div className={styles.categories}>
+			<button
+				className={!selectedCategory ? styles.active : styles.item}
+				onClick={() => setSelectedCategory(null)}
+			>
+				All
+			</button>
 			{categories.map(category => {
 				return (
 					<button
@@ -23,3 +27,24 @@ const Categories = ({ categories, setSelectedCategory, selectedCategory }) => {
 }
 
 export default Categories
+
+// do-later
+{
+	/*
+	 
+	--- Do component for button 
+	do folder UI and move it there
+	--- 
+
+	<button
+		key={category}
+		className={
+			selectedCategory === category ? styles.active : styles.item
+		}
+		onClick={() => setSelectedCategory(category)}
+	>
+		{category}
+	</button>
+
+	*/
+}

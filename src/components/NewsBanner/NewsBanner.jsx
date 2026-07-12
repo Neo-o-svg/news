@@ -1,6 +1,5 @@
-import React from 'react'
-
 import { formatTimeAgo } from '../../helpers/formateTimeAgo'
+import withSkeleton from '../../helpers/hocs/withSkeleton'
 
 import Image from '../Image/Image'
 
@@ -18,4 +17,6 @@ const NewsBanner = ({ item }) => {
 	)
 }
 
-export default NewsBanner
+const NewsBannerWithSkeleton = withSkeleton(NewsBanner, 'banner', 1)
+
+export default NewsBannerWithSkeleton
