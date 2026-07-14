@@ -3,15 +3,11 @@ import { getNews } from '../../api/apiNews'
 import useDebounce from '../../helpers/hooks/useDebounce'
 import { useFetch } from '../../helpers/hooks/useFetch'
 import { useFilters } from '../../helpers/hooks/useFilters'
-import usePagination from '../../helpers/hooks/usePagination'
 
-import NewsBannerWithSkeleton from '../../components/NewsBanner/NewsBanner'
-import NewsListWithSkeleton from '../../components/NewsList/NewsList'
-import Search from '../../components/Search/Search'
-import Pagination from '../../components/Pagination/Pagination'
-import CategoriesWithSkeleton from '../../components/Categories/Categories'
+import LatestNews from '../../components/LatestNews/LatestNews'
+import NewsByFilters from '../../components/NewsByFilters/NewsByFilters'
 
-import { PAGE_SIZES, TOTAL_PAGES } from '../../constants/constants'
+import { PAGE_SIZES } from '../../constants/constants'
 
 import styles from './styles.module.css'
 
@@ -29,41 +25,18 @@ const Main = () => {
 		keywords: debouncedKeywords
 	})
 
-	const { handlePageChange } = usePagination(filters, changeFilter)
-
 	return (
 		<main className={styles.main}>
-			<CategoriesWithSkeleton
-				selectedCategory={filters.category}
-				setSelectedCategory={category => changeFilter('category', category)}
+			<LatestNews
 				isLoading={isLoading}
+				banners={data?.news}
 			/>
 
-			<Search
-				keywords={filters.keywords}
-				setKeywords={keywords => changeFilter('keywords', keywords)}
-			/>
-
-			<NewsBannerWithSkeleton
+			<NewsByFilters
+				filters={filters}
+				changeFilter={changeFilter}
 				isLoading={isLoading}
-				item={data?.news?.[0]}
-			/>
-
-			<Pagination
-				handlePageChange={handlePageChange}
-				totalPages={TOTAL_PAGES}
-				currentPage={filters.page_number}
-			/>
-
-			<NewsListWithSkeleton
 				news={data?.news}
-				isLoading={isLoading}
-			/>
-
-			<Pagination
-				handlePageChange={handlePageChange}
-				totalPages={TOTAL_PAGES}
-				currentPage={filters.page_number}
 			/>
 		</main>
 	)
