@@ -1,14 +1,32 @@
-import usePagination from '../../helpers/hooks/usePagination'
+import { getNews } from '../../api/apiNews'
 
-import Pagination from '../../components/Pagination/Pagination'
+import usePagination from '../../helpers/hooks/usePagination'
+import { useFilters } from '../../helpers/hooks/useFilters'
+import useDebounce from '../../helpers/hooks/useDebounce'
+import { useFetch } from '../../helpers/hooks/useFetch'
+
+import PaginationWrapper from '../PaginationWrapper/PaginationWrapper'
 import NewsList from '../../components/NewsList/NewsList'
 import NewsFilters from '../NewsFilters/NewsFilters'
 
-import { TOTAL_PAGES } from '../../constants/constants'
+import { PAGE_SIZES, TOTAL_PAGES } from '../../constants/constants'
 
 import styles from './styles.module.css'
 
-const NewsByFilters = ({ filters, changeFilter, isLoading, news }) => {
+const NewsByFilters = () => {
+	const { filters, changeFilter } = useFilters({
+		page_number: 1,
+		page_size: PAGE_SIZES,
+		category: null,
+		keywords: ''
+	})
+	const debouncedKeywords = useDebounce(filters.keywords, 1500)
+
+	const { data, isLoading } = useFetch(getNews, {
+		...filters,
+		keywords: debouncedKeywords
+	})
+
 	const { handlePageChange } = usePagination(filters, changeFilter)
 
 	return (
@@ -18,22 +36,19 @@ const NewsByFilters = ({ filters, changeFilter, isLoading, news }) => {
 				changeFilter={changeFilter}
 				isLoading={isLoading}
 			/>
-			<Pagination
+			// do component news list with pagination
+			<PaginationWrapper
+				top
+				bottom
 				handlePageChange={handlePageChange}
 				totalPages={TOTAL_PAGES}
 				currentPage={filters.page_number}
-			/>
-
-			<NewsList
-				news={news}
-				isLoading={isLoading}
-			/>
-
-			<Pagination
-				handlePageChange={handlePageChange}
-				totalPages={TOTAL_PAGES}
-				currentPage={filters.page_number}
-			/>
+			>
+				<NewsList
+					news={data?.news}
+					isLoading={isLoading}
+				/>
+			</PaginationWrapper>
 		</section>
 	)
 }
