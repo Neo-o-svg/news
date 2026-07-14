@@ -1,5 +1,3 @@
-import withSkeleton from '../../helpers/hocs/withSkeleton'
-
 import Image from '../Image/Image'
 import PostSummary from '../ui/PostSummary/PostSummary'
 
@@ -14,6 +12,4 @@ const NewsBanner = ({ item }) => {
 	)
 }
 
-const NewsBannerWithSkeleton = withSkeleton(NewsBanner, 'banner', 1)
-
-export default NewsBannerWithSkeleton
+export default NewsBanner

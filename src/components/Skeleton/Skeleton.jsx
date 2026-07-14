@@ -6,7 +6,7 @@ const TYPE_CLASS = {
 	category: styles.category
 }
 
-const Skeleton = ({ count = 1, type = 'banner' }) => {
+const Skeleton = ({ count = 1, type = 'banner', direction = 'column' }) => {
 	const itemClassName = TYPE_CLASS[type] ?? styles.category
 	const items = Array.from({ length: count }, (_, index) => (
 		<li
@@ -17,13 +17,19 @@ const Skeleton = ({ count = 1, type = 'banner' }) => {
 
 	if (type === 'category') {
 		return (
-			<ul className={styles.list}>
+			<ul
+				className={direction === 'column' ? styles.columnList : styles.rowList}
+			>
 				<div className={styles.categoryRow}>{items}</div>
 			</ul>
 		)
 	}
 
-	return <ul className={styles.list}>{items}</ul>
+	return (
+		<ul className={direction === 'column' ? styles.columnList : styles.rowList}>
+			{items}
+		</ul>
+	)
 }
 
 export default Skeleton
