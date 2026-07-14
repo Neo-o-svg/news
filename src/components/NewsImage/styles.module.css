@@ -1,0 +1,8 @@
+.wrapper {
+	width: 64px;
+	height: 64px;
+	background-color: #929292;
+	background-position: center;
+	background-size: cover;
+	flex-shrink: 0;
+}

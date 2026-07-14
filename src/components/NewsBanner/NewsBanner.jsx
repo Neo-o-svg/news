@@ -1,18 +1,15 @@
-import { formatTimeAgo } from '../../helpers/formateTimeAgo'
 import withSkeleton from '../../helpers/hocs/withSkeleton'
 
 import Image from '../Image/Image'
+import PostSummary from '../ui/PostSummary/PostSummary'
 
 import styles from './styles.module.css'
 
 const NewsBanner = ({ item }) => {
 	return (
 		<div className={styles.banner}>
-			<Image image={item.image} />
-			<h3 className={styles.title}>{item.title}</h3>
-			<p className={styles.extra}>
-				{formatTimeAgo(item.published)} by {item.author}
-			</p>
+			<Image image={item.image || 'https://placehold.co/600x400/png'} />
+			<PostSummary item={item} />
 		</div>
 	)
 }

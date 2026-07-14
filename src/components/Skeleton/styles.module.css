@@ -15,8 +15,31 @@
 	height: 80px;
 }
 
+.categoryRow {
+	display: flex;
+	gap: 12px;
+}
+
+.category {
+	display: inline-block;
+	height: 30px;
+	width: 100px;
+	border-radius: 12px;
+}
+
+.category:nth-child(3n) {
+	width: 80px;
+}
+.category:nth-child(3n + 1) {
+	width: 120px;
+}
+.category:nth-child(3n + 2) {
+	width: 95px;
+}
+
 .banner,
-.item {
+.item,
+.category {
 	background: linear-gradient(-90deg, #f0f0f0 0%, #a0a0a0f5 50%, #f0f0f0 100%);
 	background-size: 400% 400%;
 	animation: pulse 2s ease-in-out infinite;

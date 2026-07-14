@@ -1,64 +1,34 @@
+import PageNumberList from '../PagiantionList/PagiantionList'
+import PaginationButton from '../ui/PaginationButton/PaginationButton'
+
 import styles from './styles.module.css'
 
-const Pagination = ({
-	totalPages,
-	handlePreviousPage,
-	handleNextPage,
-	handlePageClick,
-	currentPage
-}) => {
+const Pagination = ({ totalPages, handlePageChange, currentPage }) => {
 	return (
 		<div className={styles.pagination}>
-			<button
+			<PaginationButton
+				variant="arrow"
 				disabled={currentPage <= 1}
-				onClick={handlePreviousPage}
-				className={styles.arrow}
+				onClick={() => handlePageChange('prev')}
 			>
 				{'<'}
-			</button>
-			<div className={styles.list}>
-				{[...Array(totalPages)].map((_, index) => {
-					return (
-						<button
-							onClick={() => handlePageClick(index + 1)}
-							className={styles.pageNumber}
-							disabled={index + 1 === currentPage}
-							key={index}
-						>
-							{index + 1}
-						</button>
-					)
-				})}
-			</div>
+			</PaginationButton>
 
-			<button
+			<PageNumberList
+				totalPages={totalPages}
+				currentPage={currentPage}
+				handlePageChange={handlePageChange}
+			/>
+
+			<PaginationButton
+				variant="arrow"
 				disabled={currentPage >= totalPages}
-				onClick={handleNextPage}
-				className={styles.arrow}
+				onClick={() => handlePageChange('next')}
 			>
 				{'>'}
-			</button>
+			</PaginationButton>
 		</div>
 	)
 }
 
 export default Pagination
-
-// do-later
-{
-	/*
-	 
-	--- Do component for buttons
-	do folder UI and move it there
-	--- 
-
-	<button
-		disabled={currentPage >= totalPages}
-		onClick={handleNextPage}
-		className={styles.arrow}
-		>
-				{'>'}
-	</button>	
-
-	*/
-}
