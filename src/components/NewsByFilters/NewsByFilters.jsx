@@ -36,7 +36,7 @@ const NewsByFilters = () => {
 				changeFilter={changeFilter}
 				isLoading={isLoading}
 			/>
-			// do component news list with pagination
+
 			<PaginationWrapper
 				top
 				bottom
