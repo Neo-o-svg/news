@@ -7,6 +7,11 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	max-height: 1200px;
-	overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+	.banners {
+		max-height: 1200px;
+		overflow-y: auto;
+	}
 }

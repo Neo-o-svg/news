@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import { getCategories } from '../../api/apiNews'
 
 import withSkeleton from '../../helpers/hocs/withSkeleton'
@@ -7,34 +8,41 @@ import CategoryButton from '../ui/CategoryButton/CategoryButton'
 
 import styles from './styles.module.css'
 
-const Categories = ({ setSelectedCategory, selectedCategory }) => {
-	const { data: dataCategories } = useFetch(getCategories)
+const Categories = forwardRef(
+	({ setSelectedCategory, selectedCategory }, ref) => {
+		const { data: dataCategories } = useFetch(getCategories)
 
-	if (!dataCategories) {
-		return null
+		if (!dataCategories) {
+			return null
+		}
+
+		return (
+			<div
+				ref={ref}
+				className={styles.categories}
+			>
+				<CategoryButton
+					category={'All'}
+					isActive={!selectedCategory}
+					onClick={() => setSelectedCategory('all')}
+				/>
+				{dataCategories.categories.map(category => {
+					const isActive = selectedCategory === category
+					return (
+						<CategoryButton
+							key={category}
+							category={category}
+							isActive={isActive}
+							onClick={() => setSelectedCategory(category)}
+						/>
+					)
+				})}
+			</div>
+		)
 	}
+)
 
-	return (
-		<div className={styles.categories}>
-			<CategoryButton
-				category={'All'}
-				isActive={!selectedCategory}
-				onClick={() => setSelectedCategory('all')}
-			/>
-			{dataCategories.categories.map(category => {
-				const isActive = selectedCategory === category
-				return (
-					<CategoryButton
-						key={category}
-						category={category}
-						isActive={isActive}
-						onClick={() => setSelectedCategory(category)}
-					/>
-				)
-			})}
-		</div>
-	)
-}
+Categories.displayName = 'Categories'
 
 const CategoriesWithSkeleton = withSkeleton(Categories, 'category', 5)
 
