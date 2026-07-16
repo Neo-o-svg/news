@@ -2,9 +2,14 @@ import { useCallback } from 'react'
 
 import { TOTAL_PAGES } from '../../constants/constants'
 
-const usePagination = (filters, changeFilter) => {
+import type { IFilters } from '../../interfaces'
+
+const usePagination = (
+	filters: IFilters,
+	changeFilter: (key: string, value: string | number | null) => void
+) => {
 	const handlePageChange = useCallback(
-		(type, pageNumber = 1) => {
+		(type: string, pageNumber: number = 1) => {
 			const currentPage = filters.page_number
 
 			switch (type) {
