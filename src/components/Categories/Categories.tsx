@@ -1,16 +1,30 @@
-import { forwardRef } from 'react'
+import { forwardRef, type ForwardedRef } from 'react'
+
 import { getCategories } from '../../api/apiNews'
 
 import withSkeleton from '../../helpers/hocs/withSkeleton'
+
 import { useFetch } from '../../helpers/hooks/useFetch'
+
+import type { CategoriesApiResponse, CategoriesType } from '../../interfaces'
 
 import CategoryButton from '../ui/CategoryButton/CategoryButton'
 
 import styles from './styles.module.css'
 
+interface Props {
+	setSelectedCategory: (category: CategoriesType | null) => void
+	selectedCategory: CategoriesType | null
+}
+
 const Categories = forwardRef(
-	({ setSelectedCategory, selectedCategory }, ref) => {
-		const { data: dataCategories } = useFetch(getCategories)
+	(
+		{ setSelectedCategory, selectedCategory }: Props,
+		ref: ForwardedRef<HTMLDivElement>
+	) => {
+		const { data: dataCategories } = useFetch<CategoriesApiResponse, null>(
+			getCategories
+		)
 
 		if (!dataCategories) {
 			return null
@@ -44,6 +58,6 @@ const Categories = forwardRef(
 
 Categories.displayName = 'Categories'
 
-const CategoriesWithSkeleton = withSkeleton(Categories, 'category', 5)
+const CategoriesWithSkeleton = withSkeleton<Props>(Categories, 'category', 5)
 
 export default CategoriesWithSkeleton

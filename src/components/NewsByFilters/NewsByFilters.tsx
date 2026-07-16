@@ -6,12 +6,13 @@ import useDebounce from '../../helpers/hooks/useDebounce'
 import { useFetch } from '../../helpers/hooks/useFetch'
 
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper'
-import NewsList from '../../components/NewsList/NewsList'
+import NewsList from '../NewsList/NewsList'
 import NewsFilters from '../NewsFilters/NewsFilters'
 
 import { PAGE_SIZES, TOTAL_PAGES } from '../../constants/constants'
 
 import styles from './styles.module.css'
+import type { NewsApiResponse, ParamsType } from '../../interfaces'
 
 const NewsByFilters = () => {
 	const { filters, changeFilter } = useFilters({
@@ -22,7 +23,7 @@ const NewsByFilters = () => {
 	})
 	const debouncedKeywords = useDebounce(filters.keywords, 1500)
 
-	const { data, isLoading } = useFetch(getNews, {
+	const { data, isLoading } = useFetch<NewsApiResponse, ParamsType>(getNews, {
 		...filters,
 		keywords: debouncedKeywords
 	})
