@@ -11,8 +11,9 @@ import NewsFilters from '../NewsFilters/NewsFilters'
 
 import { PAGE_SIZES, TOTAL_PAGES } from '../../constants/constants'
 
-import styles from './styles.module.css'
 import type { NewsApiResponse, ParamsType } from '../../interfaces'
+
+import styles from './styles.module.css'
 
 const NewsByFilters = () => {
 	const { filters, changeFilter } = useFilters({
