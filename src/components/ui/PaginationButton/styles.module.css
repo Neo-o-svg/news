@@ -17,3 +17,14 @@
 .pageNumber {
 	padding: 8px;
 }
+
+.pageNumber.dark,
+.arrow.dark {
+	background-color: #23272f;
+	color: #f6f7f9;
+}
+.pageNumber.light,
+.arrow.light {
+	background-color: white;
+	color: black;
+}

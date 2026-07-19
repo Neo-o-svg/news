@@ -2,7 +2,17 @@ import PaginationButton from '../ui/PaginationButton/PaginationButton'
 
 import styles from './styles.module.css'
 
-const PageNumberList = ({ totalPages, currentPage, handlePageChange }) => {
+interface Props {
+	totalPages: number
+	currentPage: number
+	handlePageChange: (type: string, pageNumber?: number) => void
+}
+
+const PageNumberList = ({
+	totalPages,
+	currentPage,
+	handlePageChange
+}: Props) => {
 	return (
 		<div className={styles.list}>
 			{Array.from({ length: totalPages }, (_, index) => {

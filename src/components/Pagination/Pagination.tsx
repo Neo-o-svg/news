@@ -1,3 +1,5 @@
+import { UseTheme } from '../../context/ThemeContext'
+
 import type { IPaginationProps } from '../../interfaces'
 
 import PageNumberList from '../PagiantionList/PagiantionList'
@@ -11,8 +13,12 @@ const Pagination = ({
 	handlePageChange,
 	currentPage
 }: IPaginationProps) => {
+	const { isDark } = UseTheme()
+
 	return (
-		<div className={styles.pagination}>
+		<div
+			className={`${styles.pagination} ${isDark ? styles.dark : styles.light}`}
+		>
 			<PaginationButton
 				variant="arrow"
 				disabled={currentPage <= 1}
